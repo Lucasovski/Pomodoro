@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Foco</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <h1 class="logo">🍅 Pomodoro Foco</h1>
+      <button class="icon-btn" id="btn-settings" aria-label="Configurações" title="Configurações">⚙️</button>
+    </header>
+
+    <nav class="modes" role="tablist" aria-label="Modos">
+      <button class="mode-btn active" data-mode="focus" role="tab" aria-selected="true">Foco</button>
+      <button class="mode-btn" data-mode="short" role="tab" aria-selected="false">Pausa Curta</button>
+      <button class="mode-btn" data-mode="long" role="tab" aria-selected="false">Pausa Longa</button>
+    </nav>
+
+    <main class="timer-area">
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+          <circle class="ring-bg" cx="110" cy="110" r="100"></circle>
+          <circle class="ring-progress" id="ring-progress" cx="110" cy="110" r="100"></circle>
+        </svg>
+        <div class="time-display" id="time-display" role="timer" aria-live="polite">25:00</div>
+      </div>
+
+      <div class="cycle-info">
+        Ciclo até a pausa longa: <strong id="cycle-count">0/4</strong> pomodoros de foco
+      </div>
+
+      <div class="controls">
+        <button class="btn primary" id="btn-start">Iniciar</button>
+        <button class="btn" id="btn-reset" disabled>Zerar</button>
+      </div>
+    </main>
+
+    <section class="stats" aria-label="Estatísticas de hoje">
+      <h2>Hoje</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value" id="stat-pomodoros">0</span>
+          <span class="stat-label">Pomodoros concluídos</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-minutes">0 min</span>
+          <span class="stat-label">Tempo de foco</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="stat-breaks">0</span>
+          <span class="stat-label">Pausas feitas</span>
+        </div>
+      </div>
+      <p class="stats-note" id="stats-note">Os dados são salvos localmente no seu navegador.</p>
+    </section>
+
+    <!-- Painel de configurações -->
+    <div class="overlay hidden" id="settings-overlay"></div>
+    <aside class="settings-panel hidden" id="settings-panel" aria-label="Configurações">
+      <div class="settings-header">
+        <h2>Durações personalizadas</h2>
+        <button class="icon-btn" id="btn-close-settings" aria-label="Fechar configurações">✕</button>
+      </div>
+      <form id="settings-form">
+        <label class="field">
+          <span>Foco (minutos)</span>
+          <input type="number" id="inp-focus" min="1" max="180" required />
+        </label>
+        <label class="field">
+          <span>Pausa curta (minutos)</span>
+          <input type="number" id="inp-short" min="1" max="60" required />
+        </label>
+        <label class="field">
+          <span>Pausa longa (minutos)</span>
+          <input type="number" id="inp-long" min="1" max="120" required />
+        </label>
+        <label class="field">
+          <span>Pomodoros até a pausa longa</span>
+          <input type="number" id="inp-interval" min="2" max="10" required />
+        </label>
+        <label class="field checkbox-field">
+          <input type="checkbox" id="inp-autostart" />
+          <span>Iniciar próximo modo automaticamente</span>
+        </label>
+        <label class="field checkbox-field">
+          <input type="checkbox" id="inp-sound" />
+          <span>Tocar som ao concluir</span>
+        </label>
+        <div class="settings-actions">
+          <button type="submit" class="btn primary">Salvar</button>
+          <button type="button" class="btn" id="btn-defaults">Restaurar padrões</button>
+        </div>
+      </form>
+    </aside>
+
+    <div class="toast hidden" id="toast" role="status"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
